@@ -14,7 +14,7 @@ public class FormularioController {
 		model.addAttribute("titulo","Formulario usuario");
 		return "form";
 	}
-	@PostMapping
+	@PostMapping("/form")
 	public String procesar(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String email) {
 		model.addAttribute("titulo","Resultado Form");
 		model.addAttribute("username",username);
