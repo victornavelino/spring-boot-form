@@ -9,6 +9,8 @@ public class Usuario {
 	
 	@NotEmpty
 	private String password;
+	
+	@NotEmpty
 	private String email;
 
 	public String getUsername() {
