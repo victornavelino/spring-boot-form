@@ -1,4 +1,5 @@
 package com.springboot.form.controllers;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,7 @@ import com.springboot.form.models.entidades.Usuario;
 @Controller
 public class FormularioController {
 
-	@GetMapping({"/form","/"})
+	@GetMapping({ "/form", "/" })
 	public String form(Model model) {
 		model.addAttribute("titulo", "Formulario usuario");
 		return "form";
@@ -19,8 +20,13 @@ public class FormularioController {
 
 	@PostMapping("/formu")
 	public String procesar(@Valid Usuario usuario, BindingResult result, Model model) {
-
+		
 		model.addAttribute("titulo", "Resultado Form");
+		
+		if (result.hasErrors()) {
+			return "form";
+		}
+
 		model.addAttribute("usuario", usuario);
 
 		return "resultado";
