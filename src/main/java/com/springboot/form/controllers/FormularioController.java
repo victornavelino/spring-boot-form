@@ -1,28 +1,29 @@
 package com.springboot.form.controllers;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.springboot.form.models.entidades.Usuario;
 
 @Controller
 public class FormularioController {
 
-	@GetMapping("/form")
+	@GetMapping({"/form","/"})
 	public String form(Model model) {
-		model.addAttribute("titulo","Formulario usuario");
+		model.addAttribute("titulo", "Formulario usuario");
 		return "form";
 	}
-	@PostMapping("/form")
-	public String procesar(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String email) {
-		model.addAttribute("titulo","Resultado Form");
-		model.addAttribute("username",username);
-		model.addAttribute("password", password);
-		model.addAttribute("email", email);		
+
+	@PostMapping("/formu")
+	public String procesar(@Valid Usuario usuario, BindingResult result, Model model) {
+
+		model.addAttribute("titulo", "Resultado Form");
+		model.addAttribute("usuario", usuario);
+
 		return "resultado";
 	}
-	
-		
-	
+
 }
