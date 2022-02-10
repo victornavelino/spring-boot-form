@@ -2,10 +2,12 @@ package com.springboot.form.models.entidades;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Usuario {
 	
+	@Pattern(regexp = "[0-9]{2}[.][0-9]{3}")
 	private String identificador;
 	
 	@NotEmpty
