@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 public class Usuario {
 	
-	@Pattern(regexp = "[0-9]{2}[.][0-9]{3}")
+	@Pattern(regexp = "[0-9]{2}[.][\\d]{3}[.][\\d]{3}[-][A-Z]{1}")
 	private String identificador;
 	
 	@NotEmpty
