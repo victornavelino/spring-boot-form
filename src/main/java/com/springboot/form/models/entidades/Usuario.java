@@ -1,22 +1,33 @@
 package com.springboot.form.models.entidades;
 
+import java.util.Date;
+
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.springboot.form.validadores.IdentificadorRegex;
+import com.springboot.form.validadores.Requerido;
 
 public class Usuario {
 	
 	//@Pattern(regexp = "[0-9]{2}[.][\\d]{3}[.][\\d]{3}[-][A-Z]{1}")
+	@IdentificadorRegex
 	private String identificador;
 	
 	//@NotEmpty
 	private String nombre;
 	
-	@NotEmpty
+	@Requerido
 	private String apellido;
 
-	@NotEmpty
+	@NotBlank
 	@Size(min =3, max =8)
 	private String username;
 	
@@ -26,6 +37,17 @@ public class Usuario {
 	@NotEmpty
 	@Email(message = "El correo esta mal formado")
 	private String email;
+	
+	@NotNull
+	@Min(5)
+	@Max(5000)
+	private Integer cuenta;
+	
+	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date fechaNacimiento;
+	
+	//GETERS AND SETERS
 	
 	public String getNombre() {
 		return nombre;
@@ -66,14 +88,32 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+    
+	public Integer getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(Integer cuenta) {
+		this.cuenta = cuenta;
+	}
 
 	public String getIdentificador() {
 		return identificador;
 	}
 
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
+	
 	
 	
 

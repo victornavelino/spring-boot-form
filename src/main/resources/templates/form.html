@@ -8,15 +8,16 @@
 	<h3 th:text="${titulo}"></h3>
 
 	<form th:action="@{/formu}" th:object="${usuario}" method="post">
-	
-	
+
+
 		<div>
 			<label for="identificador">Identificador</label>
 		</div>
 		<div>
 			<input type="text" id="identificador" th:field="*{identificador}"></input>
 		</div>
-		<div th:if="${#fields.hasErrors('identificador')}" th:errors="*{identificador}"></div>
+		<div th:if="${#fields.hasErrors('identificador')}"
+			th:errors="*{identificador}"></div>
 
 		<div>
 			<label for="nombre">Nombre</label>
@@ -54,6 +55,20 @@
 			<input type="text" id="email" th:field="*{email}"></input>
 		</div>
 		<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+		<div>
+			<label for="cuenta">Cuenta</label>
+		</div>
+		<div>
+			<input type="number" id="cuenta" th:field="*{cuenta}"></input>
+		</div>
+		<div th:if="${#fields.hasErrors('cuenta')}" th:errors="*{cuenta}"></div>
+		<div>
+			<label for="fechaNacimiento">Fecha de Nacimiento</label>
+		</div>
+		<div>
+			<input type="text" id="fechaNacimiento" th:field="*{fechaNacimiento}" placeholder="dd/MM/yyyy"></input>
+		</div>
+		<div th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></div>
 		<div>
 			<input type="submit" value="Enviar"></input>
 		</div>
