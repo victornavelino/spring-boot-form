@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,7 +45,8 @@ public class Usuario {
 	private Integer cuenta;
 	
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Past
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date fechaNacimiento;
 	
 	//GETERS AND SETERS
