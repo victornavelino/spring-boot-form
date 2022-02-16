@@ -47,7 +47,7 @@ public class Usuario {
 	
 	@NotNull
 	@Future
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimiento;
 	
 	//GETERS AND SETERS

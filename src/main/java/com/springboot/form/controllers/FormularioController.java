@@ -1,11 +1,15 @@
 package com.springboot.form.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 //import java.util.HashMap;
 //import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +33,9 @@ public class FormularioController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(usuarioValidador);
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		formatoFecha.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(formatoFecha, false));
 	}
 
 	@GetMapping({ "/form", "/" })
