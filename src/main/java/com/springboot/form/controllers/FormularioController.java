@@ -35,7 +35,7 @@ public class FormularioController {
 		binder.addValidators(usuarioValidador);
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 		formatoFecha.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(formatoFecha, false));
+		binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(formatoFecha, false));
 	}
 
 	@GetMapping({ "/form", "/" })
