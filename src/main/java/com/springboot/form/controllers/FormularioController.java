@@ -1,7 +1,9 @@
 package com.springboot.form.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 //import java.util.HashMap;
 //import java.util.Map;
@@ -16,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -38,9 +41,14 @@ public class FormularioController {
 		formatoFecha.setLenient(false);
 		binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(formatoFecha, false));
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditor());
+		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
 	}
-
-	@GetMapping({ "/form", "/" })
+	@ModelAttribute("paises")
+	public List<String> paises(){
+		return Arrays.asList("Argentina","Brasil","Bolivia","Uruguay","Paraguay","Chile");
+	}
+	
+	@GetMapping({ "/form", "/"})
 	public String form(Model model) {
 		Usuario usuario= new Usuario();
 		usuario.setNombre("Elian");

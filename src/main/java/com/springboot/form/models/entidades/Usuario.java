@@ -50,6 +50,9 @@ public class Usuario {
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimiento;
 	
+	@NotEmpty
+	private String pais;
+	
 	//GETERS AND SETERS
 	
 	public String getNombre() {
@@ -115,6 +118,14 @@ public class Usuario {
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 	
 	
