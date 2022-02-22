@@ -26,8 +26,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.springboot.form.editors.NombreMayusculaEditor;
+import com.springboot.form.editors.PaisPropertyEditor;
 import com.springboot.form.models.entidades.Pais;
 import com.springboot.form.models.entidades.Usuario;
+import com.springboot.form.services.PaisService;
+import com.springboot.form.services.PaisServiceImpl;
 import com.springboot.form.validadores.UsuarioValidador;
 
 @Controller
@@ -36,6 +39,12 @@ public class FormularioController {
 
 	@Autowired
 	private UsuarioValidador usuarioValidador;
+	
+	@Autowired
+	private PaisService paisService;
+	
+	@Autowired
+	private PaisPropertyEditor paisEditor;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -45,16 +54,12 @@ public class FormularioController {
 		binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(formatoFecha, false));
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditor());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
+		binder.registerCustomEditor(Pais.class, "pais", paisEditor);
 	}
 
 	@ModelAttribute("listaPaises")
 	public List<Pais> listaPaises() {
-		return Arrays.asList(new Pais(1, "AR", "Argentina"),
-				new Pais(1, "AR", "Argentina"),
-				new Pais(2, "BR", "Brasil"),
-				new Pais(3, "BO", "Bolivia"),
-				new Pais(4, "PR", "Paraguay"),
-				new Pais(5, "CL", "Chile"));
+		return paisService.listar();
 	}
 	
 	@ModelAttribute("paises")

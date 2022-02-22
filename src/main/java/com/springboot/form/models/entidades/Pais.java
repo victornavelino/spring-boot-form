@@ -1,5 +1,8 @@
 package com.springboot.form.models.entidades;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class Pais {
 	
 	private Integer id;
