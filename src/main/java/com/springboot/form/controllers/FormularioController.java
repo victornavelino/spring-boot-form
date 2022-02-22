@@ -3,7 +3,9 @@ package com.springboot.form.controllers;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //import java.util.HashMap;
 //import java.util.Map;
@@ -30,10 +32,10 @@ import com.springboot.form.validadores.UsuarioValidador;
 @Controller
 @SessionAttributes("usuario")
 public class FormularioController {
-	
+
 	@Autowired
 	private UsuarioValidador usuarioValidador;
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(usuarioValidador);
@@ -43,28 +45,41 @@ public class FormularioController {
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditor());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
 	}
+
 	@ModelAttribute("paises")
-	public List<String> paises(){
-		return Arrays.asList("Argentina","Brasil","Bolivia","Uruguay","Paraguay","Chile");
+	public List<String> paises() {
+		return Arrays.asList("Argentina", "Brasil", "Bolivia", "Uruguay", "Paraguay", "Chile");
 	}
-	
-	@GetMapping({ "/form", "/"})
+
+	@ModelAttribute("paiseMap")
+	public Map<String, String> paisesMap() {
+		Map<String, String> paises = new HashMap<String,String>();
+		paises.put("AR", "Argentina");
+		paises.put("BR", "Brasil");
+		paises.put("BO", "Bolivia");
+		paises.put("UR", "Uruguay");
+		paises.put("PA", "Paraguay");
+		paises.put("CL", "Chile");
+		return paises;
+	}
+
+	@GetMapping({ "/form", "/" })
 	public String form(Model model) {
-		Usuario usuario= new Usuario();
+		Usuario usuario = new Usuario();
 		usuario.setNombre("Elian");
 		usuario.setApellido("Navelino");
 		usuario.setIdentificador("28.780.050-K");
 		model.addAttribute("titulo", "Formulario usuario");
-		model.addAttribute("usuario",usuario);
+		model.addAttribute("usuario", usuario);
 		return "form";
 	}
 
 	@PostMapping("/formu")
 	public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
-		
-		//usuarioValidador.validate(usuario, result);
+
+		// usuarioValidador.validate(usuario, result);
 		model.addAttribute("titulo", "Resultado Form");
-		
+
 		if (result.hasErrors()) {
 			return "form";
 		}
