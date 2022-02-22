@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.springboot.form.editors.NombreMayusculaEditor;
+import com.springboot.form.models.entidades.Pais;
 import com.springboot.form.models.entidades.Usuario;
 import com.springboot.form.validadores.UsuarioValidador;
 
@@ -46,12 +47,22 @@ public class FormularioController {
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
 	}
 
+	@ModelAttribute("listaPaises")
+	public List<Pais> listaPaises() {
+		return Arrays.asList(new Pais(1, "AR", "Argentina"),
+				new Pais(1, "AR", "Argentina"),
+				new Pais(2, "BR", "Brasil"),
+				new Pais(3, "BO", "Bolivia"),
+				new Pais(4, "PR", "Paraguay"),
+				new Pais(5, "CL", "Chile"));
+	}
+	
 	@ModelAttribute("paises")
 	public List<String> paises() {
 		return Arrays.asList("Argentina", "Brasil", "Bolivia", "Uruguay", "Paraguay", "Chile");
 	}
 
-	@ModelAttribute("paiseMap")
+	@ModelAttribute("paisesMap")
 	public Map<String, String> paisesMap() {
 		Map<String, String> paises = new HashMap<String,String>();
 		paises.put("AR", "Argentina");
