@@ -1,6 +1,7 @@
 package com.springboot.form.models.entidades;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -53,6 +54,9 @@ public class Usuario {
 	
 	@NotNull
 	private Pais pais;
+	
+	@NotEmpty
+	private List<String> roles;
 	
 	//GETERS AND SETERS
 	
@@ -128,6 +132,15 @@ public class Usuario {
 	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+	
 	
 	
 	

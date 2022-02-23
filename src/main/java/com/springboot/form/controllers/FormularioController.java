@@ -1,6 +1,7 @@
 package com.springboot.form.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -60,6 +61,15 @@ public class FormularioController {
 	@ModelAttribute("listaPaises")
 	public List<Pais> listaPaises() {
 		return paisService.listar();
+	}
+	
+	@ModelAttribute("listaRolesString")
+	public List<String> listaRolesString(){
+		List<String> roles = new ArrayList<>();
+		roles.add("ROL_ADMIN");
+		roles.add("ROL_USUARIO");
+		roles.add("ROL_MODERADOR");
+		return roles;
 	}
 	
 	@ModelAttribute("paises")
