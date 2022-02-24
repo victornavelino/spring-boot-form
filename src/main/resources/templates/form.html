@@ -32,11 +32,12 @@
 				th:errors="*{identificador}"></div>
 		</div>
 		<div>
-			<label for="roles">Roles</label>
+			<label >Roles</label>
 
 
-			<div>
-				<input type="text" th:field="*{roles}"></input>
+			<div th:each="role: ${listaRolesString}">
+				<input type="checkbox" th:field="*{roles}" value="${role}"></input>
+				<label th:text=${role}></label>
 			</div>
 			<div th:if="${#fields.hasErrors('roles')}"
 				th:errors="*{roles}"></div>
