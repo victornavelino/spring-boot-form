@@ -31,17 +31,21 @@
 			<div th:if="${#fields.hasErrors('identificador')}"
 				th:errors="*{identificador}"></div>
 		</div>
+		
+		
+		
 		<div>
-			<label >Roles</label>
-
-
-			<div th:each="role: ${listaRolesString}">
-				<input type="checkbox" th:field="*{roles}" value="${role}"></input>
-				<label th:text=${role}></label>
+			<label>Roles</label>
+			<div th:each="rol: ${listaRoles}">
+				<input type="checkbox" th:field="*{roles}" th:value="${rol}">
+				<label th:text=${rol}></label>
 			</div>
-			<div th:if="${#fields.hasErrors('roles')}"
-				th:errors="*{roles}"></div>
+			<div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></div>
 		</div>
+		
+		
+		
+		
 		<div>
 			<label for="nombre">Nombre</label>
 		</div>

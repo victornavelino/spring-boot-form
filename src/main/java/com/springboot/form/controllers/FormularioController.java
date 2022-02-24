@@ -63,7 +63,7 @@ public class FormularioController {
 		return paisService.listar();
 	}
 	
-	@ModelAttribute("listaRolesString")
+	@ModelAttribute("listaRoles")
 	public List<String> listaRolesString(){
 		List<String> roles = new ArrayList<>();
 		roles.add("ROL_ADMIN");
@@ -109,7 +109,8 @@ public class FormularioController {
 		if (result.hasErrors()) {
 			return "form";
 		}
-
+		System.out.print("IMPRIMIENDO ROLES");
+        System.out.print(usuario.getRoles());
 		model.addAttribute("usuario", usuario);
 		status.setComplete();
 		return "resultado";
