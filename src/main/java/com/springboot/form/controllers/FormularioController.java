@@ -72,6 +72,15 @@ public class FormularioController {
 		return roles;
 	}
 	
+	@ModelAttribute("rolesMap")
+	public Map<String, String> rolesMap() {
+		Map<String, String> roles = new HashMap<String,String>();
+		roles.put("ROL_ADMIN", "Administrador");
+		roles.put("ROL_USUARIO", "Usuario");
+		roles.put("ROL_MODERADOR", "Moderador");
+		return roles;
+	}
+	
 	@ModelAttribute("paises")
 	public List<String> paises() {
 		return Arrays.asList("Argentina", "Brasil", "Bolivia", "Uruguay", "Paraguay", "Chile");
