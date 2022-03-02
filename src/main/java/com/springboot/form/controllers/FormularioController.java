@@ -28,10 +28,13 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.springboot.form.editors.NombreMayusculaEditor;
 import com.springboot.form.editors.PaisPropertyEditor;
+import com.springboot.form.editors.RolesEditor;
 import com.springboot.form.models.entidades.Pais;
+import com.springboot.form.models.entidades.Role;
 import com.springboot.form.models.entidades.Usuario;
 import com.springboot.form.services.PaisService;
 import com.springboot.form.services.PaisServiceImpl;
+import com.springboot.form.services.RoleService;
 import com.springboot.form.validadores.UsuarioValidador;
 
 @Controller
@@ -45,7 +48,13 @@ public class FormularioController {
 	private PaisService paisService;
 	
 	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
 	private PaisPropertyEditor paisEditor;
+	
+	@Autowired
+	private RolesEditor rolesEditor;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -56,11 +65,22 @@ public class FormularioController {
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditor());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
 		binder.registerCustomEditor(Pais.class, "pais", paisEditor);
+		binder.registerCustomEditor(Role.class, "roles", rolesEditor);
 	}
-
+	
+	@ModelAttribute("generos")
+	public List<String> genero(){
+		return Arrays.asList("Hombre","Mujer");
+	}
+	
 	@ModelAttribute("listaPaises")
 	public List<Pais> listaPaises() {
 		return paisService.listar();
+	}
+	
+	@ModelAttribute("roles")
+	public List<Role> listaRoles(){
+		return roleService.listar();
 	}
 	
 	@ModelAttribute("listaRoles")
@@ -104,6 +124,10 @@ public class FormularioController {
 		usuario.setNombre("Elian");
 		usuario.setApellido("Navelino");
 		usuario.setIdentificador("28.780.050-K");
+		usuario.setHabilitar(true);
+		usuario.setValorSecreto("Algun Valor Secreto...*****");
+		usuario.setPais(new Pais(1, "AR", "Argentina"));
+		usuario.setRoles(Arrays.asList(new Role(2,"Usuario","ROLE_USER")));
 		model.addAttribute("titulo", "Formulario usuario");
 		model.addAttribute("usuario", usuario);
 		return "form";
