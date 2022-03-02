@@ -42,9 +42,14 @@ public class Role {
 
 	@Override
 	public boolean equals(Object obj) {
-		Role rol=(Role)obj;
-		return this.id!=null && this.id.equals(rol.getId());
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Role)) {
+			return false;
+		}
+		Role rol = (Role) obj;
+		return this.id != null && this.id.equals(rol.getId());
 	}
-	
-	
+
 }

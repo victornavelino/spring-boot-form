@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -43,16 +44,16 @@ public class FormularioController {
 
 	@Autowired
 	private UsuarioValidador usuarioValidador;
-	
+
 	@Autowired
 	private PaisService paisService;
-	
+
 	@Autowired
 	private RoleService roleService;
-	
+
 	@Autowired
 	private PaisPropertyEditor paisEditor;
-	
+
 	@Autowired
 	private RolesEditor rolesEditor;
 
@@ -67,40 +68,40 @@ public class FormularioController {
 		binder.registerCustomEditor(Pais.class, "pais", paisEditor);
 		binder.registerCustomEditor(Role.class, "roles", rolesEditor);
 	}
-	
+
 	@ModelAttribute("generos")
-	public List<String> genero(){
-		return Arrays.asList("Hombre","Mujer");
+	public List<String> genero() {
+		return Arrays.asList("Hombre", "Mujer");
 	}
-	
+
 	@ModelAttribute("listaPaises")
 	public List<Pais> listaPaises() {
 		return paisService.listar();
 	}
-	
+
 	@ModelAttribute("roles")
-	public List<Role> listaRoles(){
+	public List<Role> listaRoles() {
 		return roleService.listar();
 	}
-	
+
 	@ModelAttribute("listaRoles")
-	public List<String> listaRolesString(){
+	public List<String> listaRolesString() {
 		List<String> roles = new ArrayList<>();
 		roles.add("ROL_ADMIN");
 		roles.add("ROL_USUARIO");
 		roles.add("ROL_MODERADOR");
 		return roles;
 	}
-	
+
 	@ModelAttribute("rolesMap")
 	public Map<String, String> rolesMap() {
-		Map<String, String> roles = new HashMap<String,String>();
+		Map<String, String> roles = new HashMap<String, String>();
 		roles.put("ROL_ADMIN", "Administrador");
 		roles.put("ROL_USUARIO", "Usuario");
 		roles.put("ROL_MODERADOR", "Moderador");
 		return roles;
 	}
-	
+
 	@ModelAttribute("paises")
 	public List<String> paises() {
 		return Arrays.asList("Argentina", "Brasil", "Bolivia", "Uruguay", "Paraguay", "Chile");
@@ -108,7 +109,7 @@ public class FormularioController {
 
 	@ModelAttribute("paisesMap")
 	public Map<String, String> paisesMap() {
-		Map<String, String> paises = new HashMap<String,String>();
+		Map<String, String> paises = new HashMap<String, String>();
 		paises.put("AR", "Argentina");
 		paises.put("BR", "Brasil");
 		paises.put("BO", "Bolivia");
@@ -127,24 +128,30 @@ public class FormularioController {
 		usuario.setHabilitar(true);
 		usuario.setValorSecreto("Algun Valor Secreto...*****");
 		usuario.setPais(new Pais(1, "AR", "Argentina"));
-		usuario.setRoles(Arrays.asList(new Role(2,"Usuario","ROLE_USER")));
+		usuario.setRoles(Arrays.asList(new Role(2, "Usuario", "ROLE_USER")));
 		model.addAttribute("titulo", "Formulario usuario");
 		model.addAttribute("usuario", usuario);
 		return "form";
 	}
 
 	@PostMapping("/formu")
-	public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
-
-		// usuarioValidador.validate(usuario, result);
-		model.addAttribute("titulo", "Resultado Form");
+	public String procesar(@Valid Usuario usuario, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Resultado Form");
 			return "form";
 		}
-		System.out.print("IMPRIMIENDO ROLES");
-        System.out.print(usuario.getRoles());
-		model.addAttribute("usuario", usuario);
+
+		return "redirect:/ver";
+	}
+
+	@GetMapping("/ver")
+	public String ver(@SessionAttribute(name="usuario",required =false) Usuario usuario, Model model, SessionStatus status) {
+		
+		if(usuario ==null) {
+			return "redirect:/form";
+		}
+		model.addAttribute("titulo", "Resultado Form");
 		status.setComplete();
 		return "resultado";
 	}
